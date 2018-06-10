@@ -13,7 +13,7 @@ BOT_NAME = 'baidukey'
 
 SPIDER_MODULES = ['baidukey.spiders']
 NEWSPIDER_MODULE = 'baidukey.spiders'
-LOG_LEVEL= 'ERROR'
+LOG_LEVEL= 'DEBUG'
 
 # Crawl responsibly by identifying yourself (and your website) on the user-agent
 #USER_AGENT = 'baidukey (+http://www.yourdomain.com)'
