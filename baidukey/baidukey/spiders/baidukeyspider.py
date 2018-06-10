@@ -26,7 +26,7 @@ class BaidukeyspiderSpider(scrapy.Spider):
             for target_a in response.xpath('//div[@id="rs"]/table/tr/th/a').extract():
                 keyword=Selector(text=target_a).xpath('//a/text()').extract_first()
                 href=Selector(text=target_a).xpath('//a/@href').extract_first()
-                if(keyword.find('干洗店') != -1or keyword.find('洗衣店')!=-1):
+                if(keyword.find('干洗') != -1or keyword.find('洗衣')!=-1):
                     item['keywords']=keyword
                     item['types']='百度'
                     item['status']=0
@@ -39,7 +39,7 @@ class BaidukeyspiderSpider(scrapy.Spider):
             for target_a in response.xpath('//div[@id="relativewords"]/div[@class="rw-list"]/a').extract():
                 keyword = Selector(text=target_a).xpath('//a/text()').extract_first()
                 href = Selector(text=target_a).xpath('//a/@href').extract_first()
-                if (keyword.find('干洗店') != -1 or keyword.find('洗衣店') != -1):
+                if (keyword.find('干洗') != -1 or keyword.find('洗衣') != -1):
                     item['keywords'] = keyword
                     item['types'] = '百度'
                     item['status'] = 0

@@ -36,15 +36,15 @@ class BaidukeyPipeline(object):
     # 写入数据库中
     def _conditional_insert(self, tx, item):
         if(item is not None ):
-            print(item['keywords'])
-            sql="SELECT `keywords` FROM `xg_searchs` WHERE `keywords`='%s'" % ( item['keywords'])
-            tx.execute(sql, item['keywords'])
+            sql="SELECT `keywords` FROM `xg_searchs` WHERE `keywords`='%s'" % (str(item['keywords']))
+            tx.execute(sql)
             result = tx.fetchone()
             if result  is not None:
                 print("*"*10,"Item already stored in db:%s" % item,"*"*10)
             else:
                 sql = "insert into xg_searchs(keywords,types,status) values(%s,%s,%s)"
                 params = (item["keywords"], item["types"],item['status'])
+                print(item['keywords'])
                 tx.execute(sql, params)
         else:
             pass
