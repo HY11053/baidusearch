@@ -7,7 +7,7 @@ class RotateUserAgentMiddleware(UserAgentMiddleware):
 
     def process_request(self, request, spider):
         # 这句话用于随机选择user-agent
-        if(request.url.find('m.baidu.com/') != -1):
+        if(request.url.find('m.baidu.com') != -1):
             ua = random.choice(self.mobile_user_agent_list)
         else:
             ua = random.choice(self.user_agent_list)
