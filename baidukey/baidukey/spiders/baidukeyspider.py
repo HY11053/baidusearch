@@ -31,45 +31,49 @@ class BaidukeyspiderSpider(scrapy.Spider):
                 keyword=Selector(text=target_a).xpath('//a/text()').extract_first()
                 href=Selector(text=target_a).xpath('//a/@href').extract_first()
                 if(keyword.find('干洗') != -1or keyword.find('洗衣')!=-1):
-                    item['keywords']=keyword
-                    item['types']='百度pc'
-                    item['status']=0
-                    yield item
-                    fullhref = response.urljoin(href)
-                    yield scrapy.Request(url=fullhref, callback=self.parse)
+                    if (keyword.find('洗衣粉') == -1 and keyword.find('洗衣液') == -1 and keyword.find('洗衣机') == -1):
+                        item['keywords']=keyword
+                        item['types']='百度pc'
+                        item['status']=0
+                        yield item
+                        fullhref = response.urljoin(href)
+                        yield scrapy.Request(url=fullhref, callback=self.parse)
         elif(response.url.find('m.baidu.com') !=-1):
             #print(response.request.headers.get('User-Agent', None))
             for target_a in response.xpath('//div[@id="relativewords"]/div[@class="rw-list"]/a').extract():
                 keyword = Selector(text=target_a).xpath('//a/text()').extract_first()
                 href = Selector(text=target_a).xpath('//a/@href').extract_first()
                 if (keyword.find('干洗') != -1 or keyword.find('洗衣') != -1):
-                    item['keywords'] = keyword
-                    item['types'] = '百度移动'
-                    item['status'] = 0
-                    yield item
-                    fullhref = response.urljoin(href)
-                    yield scrapy.Request(url=fullhref, callback=self.parse)
+                    if(keyword.find('洗衣粉')==-1 and keyword.find('洗衣液')==-1 and  keyword.find('洗衣机')==-1):
+                        item['keywords'] = keyword
+                        item['types'] = '百度移动'
+                        item['status'] = 0
+                        yield item
+                        fullhref = response.urljoin(href)
+                        yield scrapy.Request(url=fullhref, callback=self.parse)
         elif(response.url.find("www.so.com")!=-1):
             for target_a in response.xpath('//div[@id="rs"]/table/tr/th/a').extract():
                 keyword = Selector(text=target_a).xpath('//a/text()').extract_first()
                 href = Selector(text=target_a).xpath('//a/@href').extract_first()
                 if (keyword.find('干洗') != -1 or keyword.find('洗衣') != -1):
-                    item['keywords'] = keyword
-                    item['types'] = '好搜'
-                    item['status'] = 0
-                    yield item
-                    fullhref = response.urljoin(href)
-                    yield scrapy.Request(url=fullhref, callback=self.parse)
+                    if (keyword.find('洗衣粉') == -1 and keyword.find('洗衣液') == -1 and keyword.find('洗衣机') == -1):
+                        item['keywords'] = keyword
+                        item['types'] = '好搜'
+                        item['status'] = 0
+                        yield item
+                        fullhref = response.urljoin(href)
+                        yield scrapy.Request(url=fullhref, callback=self.parse)
 
         elif (response.url.find("sogou.com") != -1):
             for target_a in response.xpath('//table[@id="hint_container"]/tr/td/p/a').extract():
                 keyword = Selector(text=target_a).xpath('//a/text()').extract_first()
                 href = Selector(text=target_a).xpath('//a/@href').extract_first()
                 if (keyword.find('干洗') != -1 or keyword.find('洗衣') != -1):
-                    item['keywords'] = keyword
-                    item['types'] = '搜狗'
-                    item['status'] = 0
-                    yield item
-                    fullhref = response.urljoin(href)
-                    yield scrapy.Request(url=fullhref, callback=self.parse)
+                    if (keyword.find('洗衣粉') == -1 and keyword.find('洗衣液') == -1 and keyword.find('洗衣机') == -1):
+                        item['keywords'] = keyword
+                        item['types'] = '搜狗'
+                        item['status'] = 0
+                        yield item
+                        fullhref = response.urljoin(href)
+                        yield scrapy.Request(url=fullhref, callback=self.parse)
 
